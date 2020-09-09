@@ -11,6 +11,7 @@ void drawSphere(int x, int y, int R, int N, int red, int green, int blue )
             txSetColor(RGB(i * red / N, i * green / N, i * blue / N));
             txCircle(x, y, R - R * i / N);
         }
+
     txSetColor(color1);
     txSetFillColor(color2);
 }
