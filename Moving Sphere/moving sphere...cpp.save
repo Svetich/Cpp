@@ -1,6 +1,5 @@
 #include "TXLib.h"
 #include "iostream"
-using namespace std;
 #include "cmath"
 
 
@@ -52,18 +51,17 @@ bool isCollidedTwoSphere(int x1, int y1, int x2, int y2, int Radius)
     }
 
 
-void ifCollision(bool collisionResult, float *Vx_run, float *Vy_run,
+void ifCollision(float *Vx_run, float *Vy_run,
                 float *Vx_walk, float *Vy_walk, float weight_run, float weight_walk)
 {
     float Vcx = ((weight_run * (*Vx_run) + weight_walk * (*Vx_walk)) / (weight_run + weight_walk));
     float Vcy = ((weight_run * (*Vy_run) + weight_walk * (*Vy_walk)) / (weight_run + weight_walk));
-    if (collisionResult)
-    {
-        *Vx_run = 2 * Vcx - (*Vx_run);
-        *Vy_run = 2 * Vcy - (*Vy_run);
-        *Vx_walk = 2 * Vcx - (*Vx_walk);
-        *Vy_walk = 2 * Vcy - (*Vy_walk);
-    }
+
+    *Vx_run = 2 * Vcx - *Vx_run;
+    *Vy_run = 2 * Vcy - *Vy_run;
+    *Vx_walk = 2 * Vcx - *Vx_walk;
+    *Vy_walk = 2 * Vcy - *Vy_walk;
+
 }
 
 
@@ -103,8 +101,8 @@ int main()
 
     txCreateWindow(1300, 700);
 
-    count << "The goal of the game is to collide with the RED ball without hitting the GREEN ones .\n";
-    count << "Click in the upper left corner to start the game .\n";
+    txMessageBox("The goal of the game is to collide with the RED ball without hitting the GREEN ones.", "Rules");
+    txMessageBox("Click in the upper left corner to start the game!", "Start");
 
     while (true)
     {
@@ -141,8 +139,10 @@ int main()
             bool collisionResult_fail3 = isCollidedTwoSphere(x_walk3, y_walk3, txMouseX(), txMouseY(), Radius);
 
 
+
             if ((collisionResult_fail1) || (collisionResult_fail2) || (collisionResult_fail3))
             {
+
                 txMessageBox("FAIL", "Message");
                 break;
             }
@@ -151,19 +151,39 @@ int main()
             bool collisionResult_walk2 = isCollidedTwoSphere(x_run, y_run, x_walk2, y_walk2, Radius);
             bool collisionResult_walk3 = isCollidedTwoSphere(x_run, y_run, x_walk3, y_walk3, Radius);
 
-            ifCollision(collisionResult_walk1, &Vx_run, &Vy_run, &Vx_walk1, &Vy_walk1, weight_run, weight_walk);
-            ifCollision(collisionResult_walk2, &Vx_run, &Vy_run, &Vx_walk2, &Vy_walk2, weight_run, weight_walk);
-            ifCollision(collisionResult_walk3, &Vx_run, &Vy_run, &Vx_walk3, &Vy_walk3, weight_run, weight_walk);
+            if (collisionResult_walk1)
+            {
+                ifCollision(&Vx_run, &Vy_run, &Vx_walk1, &Vy_walk1, weight_run, weight_walk);
+            }
 
+            if (collisionResult_walk2)
+            {
+                ifCollision(&Vx_run, &Vy_run, &Vx_walk2, &Vy_walk2, weight_run, weight_walk);
+            }
+
+            if (collisionResult_walk3)
+            {
+                ifCollision(&Vx_run, &Vy_run, &Vx_walk3, &Vy_walk3, weight_run, weight_walk);
+            }
 
             bool collisionResult_walk1_2 = isCollidedTwoSphere(x_walk1, y_walk1, x_walk2, y_walk2, Radius);
             bool collisionResult_walk1_3 = isCollidedTwoSphere(x_walk1, y_walk1, x_walk3, y_walk3, Radius);
             bool collisionResult_walk2_3 = isCollidedTwoSphere(x_walk2, y_walk2, x_walk3, y_walk3, Radius);
 
-            ifCollision(collisionResult_walk1_2, &Vx_walk1, &Vy_walk1, &Vx_walk2, &Vy_walk2, weight_run, weight_walk);
-            ifCollision(collisionResult_walk1_3, &Vx_walk1, &Vy_walk1, &Vx_walk3, &Vy_walk3, weight_run, weight_walk);
-            ifCollision(collisionResult_walk2_3, &Vx_walk2, &Vy_walk2, &Vx_walk3, &Vy_walk3, weight_run, weight_walk);
+            if (collisionResult_walk1_2)
+            {
+                ifCollision(&Vx_walk1, &Vy_walk1, &Vx_walk2, &Vy_walk2, weight_run, weight_walk);
+            }
 
+            if (collisionResult_walk1_3)
+            {
+                ifCollision(&Vx_walk1, &Vy_walk1, &Vx_walk3, &Vy_walk3, weight_run, weight_walk);
+            }
+
+            if (collisionResult_walk2_3)
+            {
+            ifCollision(&Vx_walk2, &Vy_walk2, &Vx_walk3, &Vy_walk3, weight_run, weight_walk);
+            }
 
             moveSphere(&x_run, &y_run, Vx_run, Vy_run, dt);
             moveSphere(&x_walk1, &y_walk1, Vx_walk1, Vy_walk1, dt);
