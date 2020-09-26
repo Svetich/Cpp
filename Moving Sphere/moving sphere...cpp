@@ -2,6 +2,7 @@
 #include "iostream"
 #include "cmath"
 
+
 struct Vector
 {
     int x;
@@ -80,22 +81,16 @@ void ifCollision(Param_Sphere *sphere1, Param_Sphere *sphere2)
 }
 
 
-
 int main()
 {
     const int dt = 1;
 
     int N = 100;
 
- //   int x_catch = 300;
- //   int y_catch = 300;
-
     Param_Sphere sphere_run = {500, 200, 15, 15, 35, 500};
     Param_Sphere sphere_walk1 = {260, 140, 20, 20, 35, 200};
     Param_Sphere sphere_walk2 = {520, 280, 40, 40, 35, 200};
-    Param_Sphere sphere_walk3 = {780, 600, 30, 30, 35, 200};
-
-
+    Param_Sphere sphere_walk3 = {780, 600, 30, 30, 35, 200}
 
     txCreateWindow(1300, 700);
 
@@ -117,17 +112,14 @@ int main()
             drawSphere(sphere_walk2, N, 0, 255, 0 );
             drawSphere(sphere_walk3, N, 0, 255, 0 );
 
-
             checkCollisionSphere(&sphere_run);
             checkCollisionSphere(&sphere_walk1);
             checkCollisionSphere(&sphere_walk2);
             checkCollisionSphere(&sphere_walk3);
 
-
             drawSphere(sphere_mouse, N, 0, 0, 128);
 
             bool collisionResult_win = isCollidedTwoSphere(sphere_run, sphere_mouse);
-
 
             if (collisionResult_win)
             {
@@ -135,12 +127,9 @@ int main()
                 break;
             }
 
-
             bool collisionResult_fail1 = isCollidedTwoSphere(sphere_walk1, sphere_mouse);
             bool collisionResult_fail2 = isCollidedTwoSphere(sphere_walk2, sphere_mouse);
             bool collisionResult_fail3 = isCollidedTwoSphere(sphere_walk3, sphere_mouse);
-
-
 
             if ((collisionResult_fail1) || (collisionResult_fail2) || (collisionResult_fail3))
             {
@@ -152,7 +141,6 @@ int main()
             bool collisionResult_walk1 = isCollidedTwoSphere(sphere_run, sphere_walk1);
             bool collisionResult_walk2 = isCollidedTwoSphere(sphere_run, sphere_walk2);
             bool collisionResult_walk3 = isCollidedTwoSphere(sphere_run, sphere_walk3);
-
 
             if (collisionResult_walk1)
             {
@@ -169,11 +157,9 @@ int main()
                 ifCollision(&sphere_run, &sphere_walk3);
             }
 
-
             bool collisionResult_walk1_2 = isCollidedTwoSphere(sphere_walk1, sphere_walk2);
             bool collisionResult_walk1_3 = isCollidedTwoSphere(sphere_walk1, sphere_walk3);
             bool collisionResult_walk2_3 = isCollidedTwoSphere(sphere_walk2, sphere_walk3);
-
 
             if (collisionResult_walk1_2)
             {
@@ -190,18 +176,13 @@ int main()
                 ifCollision(&sphere_walk2, &sphere_walk3);
             }
 
-
             moveSphere(&sphere_run, dt);
             moveSphere(&sphere_walk1, dt);
             moveSphere(&sphere_walk2, dt);
             moveSphere(&sphere_walk3, dt);
 
-
             txEnd();
-
         }
-
-
     }
     return 0;
 }

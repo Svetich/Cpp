@@ -2,6 +2,7 @@
 #include "iostream"
 #include "cmath"
 
+
 struct Vector
 {
     int x;
@@ -44,7 +45,7 @@ void moveSphere(Param_Sphere *sphere, const int dt)
 }
 
 
-void checkCollisionSphere(Param_Sphere *sphere, int Radius)
+void checkCollisionSphere(Param_Sphere *sphere)
 {
     if (((*sphere).local.x >= 1300 - (*sphere).Radius) || ((*sphere).local.x <= (*sphere).Radius))
         {
@@ -80,22 +81,16 @@ void ifCollision(Param_Sphere *sphere1, Param_Sphere *sphere2)
 }
 
 
-
 int main()
 {
     const int dt = 1;
 
-    int Radius = 35;
-
     int N = 100;
 
-    int x_catch = 300;
-    int y_catch = 300;
-
-    Param_Sphere sphere_run = {500, 200, 15, 15, 500};
-    Param_Sphere sphere_walk1 = {260, 140, 20, 20, 200};
-    Param_Sphere sphere_walk2 = {520, 280, 40, 40, 200};
-    Param_Sphere sphere_walk3 = {780, 600, 30, 30, 200};
+    Param_Sphere sphere_run = {500, 200, 15, 15, 35, 500};
+    Param_Sphere sphere_walk1 = {260, 140, 20, 20, 35, 200};
+    Param_Sphere sphere_walk2 = {520, 280, 40, 40, 35, 200};
+    Param_Sphere sphere_walk3 = {780, 600, 30, 30, 35, 200};
 
 
 
@@ -108,7 +103,7 @@ int main()
     {
         txClear();
 
-        Param_Sphere sphere_mouse = {txMouseX(), txMouseY(), 15, 15, 200};
+        Param_Sphere sphere_mouse = {txMouseX(), txMouseY(), 15, 15, 35, 200};
 
         if (txMouseButtons() == 1)
         {
@@ -143,7 +138,6 @@ int main()
             bool collisionResult_fail3 = isCollidedTwoSphere(sphere_walk3, sphere_mouse);
 
 
-
             if ((collisionResult_fail1) || (collisionResult_fail2) || (collisionResult_fail3))
             {
 
@@ -173,8 +167,8 @@ int main()
 
 
             bool collisionResult_walk1_2 = isCollidedTwoSphere(sphere_walk1, sphere_walk2);
-            bool collisionResult_walk1_3 = isCollidedTwoSphere(sphere_walk1, sphere_walk3, Radius);
-            bool collisionResult_walk2_3 = isCollidedTwoSphere(sphere_walk2, sphere_walk3, Radius);
+            bool collisionResult_walk1_3 = isCollidedTwoSphere(sphere_walk1, sphere_walk3);
+            bool collisionResult_walk2_3 = isCollidedTwoSphere(sphere_walk2, sphere_walk3);
 
 
             if (collisionResult_walk1_2)
@@ -200,10 +194,7 @@ int main()
 
 
             txEnd();
-
         }
-
-
     }
     return 0;
 }
