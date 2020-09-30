@@ -122,64 +122,56 @@ int main()
             drawSphere(sphere_walk3, definition);
             drawSphere(sphere_mouse, definition);
 
+            txEnd();
+
             checkCollisionSphere(&sphere_run);
             checkCollisionSphere(&sphere_walk1);
             checkCollisionSphere(&sphere_walk2);
             checkCollisionSphere(&sphere_walk3);
 
-            bool collisionResult_win = isCollidedTwoSphere(sphere_run, sphere_mouse);
 
-            if (collisionResult_win)
+            if (isCollidedTwoSphere(sphere_run, sphere_mouse))
             {
                 txMessageBox("WIN", "Message");
                 break;
             }
 
-            bool collisionResult_fail1 = isCollidedTwoSphere(sphere_walk1, sphere_mouse);
-            bool collisionResult_fail2 = isCollidedTwoSphere(sphere_walk2, sphere_mouse);
-            bool collisionResult_fail3 = isCollidedTwoSphere(sphere_walk3, sphere_mouse);
 
-            if ((collisionResult_fail1) || (collisionResult_fail2) || (collisionResult_fail3))
+            if ((isCollidedTwoSphere(sphere_walk1, sphere_mouse)) || (isCollidedTwoSphere(sphere_walk2, sphere_mouse)) || (isCollidedTwoSphere(sphere_walk3, sphere_mouse)))
             {
 
                 txMessageBox("FAIL", "Message");
                 break;
             }
 
-            bool collisionResult_walk1 = isCollidedTwoSphere(sphere_run, sphere_walk1);
-            bool collisionResult_walk2 = isCollidedTwoSphere(sphere_run, sphere_walk2);
-            bool collisionResult_walk3 = isCollidedTwoSphere(sphere_run, sphere_walk3);
 
-            if (collisionResult_walk1)
+            if (isCollidedTwoSphere(sphere_run, sphere_walk1))
             {
                 resolveCollision(&sphere_run, &sphere_walk1);
             }
 
-            if (collisionResult_walk2)
+            if (isCollidedTwoSphere(sphere_run, sphere_walk2))
             {
                 resolveCollision(&sphere_run, &sphere_walk2);
             }
 
-            if (collisionResult_walk3)
+            if (isCollidedTwoSphere(sphere_run, sphere_walk3))
             {
                 resolveCollision(&sphere_run, &sphere_walk3);
             }
 
-            bool collisionResult_walk1_2 = isCollidedTwoSphere(sphere_walk1, sphere_walk2);
-            bool collisionResult_walk1_3 = isCollidedTwoSphere(sphere_walk1, sphere_walk3);
-            bool collisionResult_walk2_3 = isCollidedTwoSphere(sphere_walk2, sphere_walk3);
 
-            if (collisionResult_walk1_2)
+            if (isCollidedTwoSphere(sphere_walk1, sphere_walk2))
             {
                 resolveCollision(&sphere_walk1, &sphere_walk2);
             }
 
-            if (collisionResult_walk1_3)
+            if (isCollidedTwoSphere(sphere_walk1, sphere_walk3))
             {
                 resolveCollision(&sphere_walk1, &sphere_walk3);
             }
 
-            if (collisionResult_walk2_3)
+            if (isCollidedTwoSphere(sphere_walk2, sphere_walk3))
             {
                 resolveCollision(&sphere_walk2, &sphere_walk3);
             }
@@ -188,8 +180,6 @@ int main()
             moveSphere(&sphere_walk1, dt);
             moveSphere(&sphere_walk2, dt);
             moveSphere(&sphere_walk3, dt);
-
-            txEnd();
         }
     }
     return 0;
