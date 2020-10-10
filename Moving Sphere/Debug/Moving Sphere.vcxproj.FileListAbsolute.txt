@@ -1,0 +1,2 @@
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Debug\Moving Sphere.exe
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Debug\Moving Sphere.pdb

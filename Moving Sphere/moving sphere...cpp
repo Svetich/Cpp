@@ -58,11 +58,13 @@ void checkCollisionSphere(Sphere *sphere)
     if ((sphere -> local.x >= 1300 - sphere -> radius) || (sphere -> local.x <= sphere -> radius))
     {
         sphere -> velocity.x = - sphere -> velocity.x;
+        sphere -> local.x = sphere -> local.x + abs(sphere -> local.x - sphere -> radius);
     }
 
     if ((sphere -> local.y >= 700 - sphere -> radius) || (sphere -> local.y <= sphere -> radius))
     {
         sphere -> velocity.y = - sphere -> velocity.y;
+        sphere -> local.y = sphere -> local.y + abs(sphere -> local.y - sphere -> radius);
     }
 }
 

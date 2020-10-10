@@ -1,0 +1,10 @@
+﻿  Ideal Gas.cpp
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Ideal Gas.cpp(21,31): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Ideal Gas.cpp(46,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Ideal Gas.cpp(100,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Ideal Gas.cpp(105,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Ideal Gas.cpp(113,38): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Ideal Gas.cpp(113,38): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Ideal Gas.cpp(113,71): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Ideal Gas.cpp(113,71): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Moving Sphere.vcxproj -> C:\Users\рбт\Desktop\3 семестр\Практика на С++\Moving Sphere\Debug\Moving Sphere.exe

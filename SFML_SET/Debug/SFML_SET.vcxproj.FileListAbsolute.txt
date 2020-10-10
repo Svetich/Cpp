@@ -1,0 +1,2 @@
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\SFML_SET\Debug\SFML_SET.exe
+C:\Users\рбт\Desktop\3 семестр\Практика на С++\SFML_SET\Debug\SFML_SET.pdb
