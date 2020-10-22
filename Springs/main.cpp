@@ -125,10 +125,10 @@ int main()
 
         window.clear();
         
-        
+     
         for (int i = 0; i < NUMBALLS; i++)
         {
-            Sphere sphere = balls[i];
+            Sphere sphere;
             sphere.drawSphere(balls[i], &window);      
         }
 
