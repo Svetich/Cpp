@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 
-
 class Spring
 {
     public:
@@ -25,8 +24,10 @@ class Spring
             
             window->draw(line, 2, sf::Lines);
         }
-        /*void changeLength()
+        Vector2f changeLength(Spring spring)
         {
+            Vector2f delta = spring.lengthStart - spring.length0Start + spring.lengthEnd - spring.length0End;
 
-        }*/
+            return delta;
+        }
 };
