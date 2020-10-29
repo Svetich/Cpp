@@ -31,8 +31,8 @@ int main()
 
     Vector2f radiusVector = {radius, radius};
 
-    Sphere ball1 = {{640, 50}, {0.1, 0}, {0, 0}, sf::Color::Blue, radius, 50};
-    Sphere ball2 = {{960, 50}, {-0.2, 0}, {0, 0}, sf::Color::Blue, radius, 50};
+    Sphere ball1 = {{640, 550}, {0.1, 0.5}, {0, 0}, sf::Color::Blue, radius, 50};
+    Sphere ball2 = {{960, 350}, {-0.2, -0.7}, {0, 0}, sf::Color::Blue, radius, 50};
 
     Sphere balls[NUMBALLS] = {ball1, ball2};
 
@@ -49,16 +49,13 @@ int main()
         {
             Vector2f tmpLengthStart = balls[i].local + radiusVector;
             Vector2f tmpLengthEnd = balls[j].local + radiusVector;
-
-            //std::cout << tmpLengthEnd.x << std::endl;
         
             sf::Color tmpColor = sf::Color::White;
 
             Spring tmpSpring = {tmpLengthStart, tmpLengthEnd, tmpLengthStart, tmpLengthEnd, 0.0001, tmpColor};
 
             springs[i] = tmpSpring;
-        }
-        
+        }        
     }
     
     while (window.isOpen())
@@ -95,9 +92,7 @@ int main()
         for (int i = 0; i < NUMBALLS; i++)
         {
             Sphere sphere;
-            sphere.drawSphere(balls[i], &window); 
-
-            //sphere.moveSphere(&balls[i], DT);    
+            sphere.drawSphere(balls[i], &window);    
         }
 
         for (int i = 0; i < NUMBALLS; i++)
