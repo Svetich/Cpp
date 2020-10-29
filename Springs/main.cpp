@@ -27,10 +27,12 @@ int main()
     const int NUMBALLS = 2;
     const int NUMSPRINGS = 1;
 
-    int Radius = 20;
+    float radius = 20;
 
-    Sphere ball1 = {{640, 50}, {0.1, 0}, {0, 0}, sf::Color::Blue, Radius, 50};
-    Sphere ball2 = {{760, 50}, {-0.2, 0}, {0, 0}, sf::Color::Blue, Radius, 50};
+    Vector2f radiusVector = {radius, radius};
+
+    Sphere ball1 = {{640, 50}, {0.1, 0}, {0, 0}, sf::Color::Blue, radius, 50};
+    Sphere ball2 = {{960, 50}, {-0.2, 0}, {0, 0}, sf::Color::Blue, radius, 50};
 
     Sphere balls[NUMBALLS] = {ball1, ball2};
 
@@ -45,10 +47,10 @@ int main()
     {
         for (int j = i + 1; j < NUMBALLS; j++)
         {
-            Vector2f tmpLengthStart = balls[i].local;
-            Vector2f tmpLengthEnd = balls[j].local;
+            Vector2f tmpLengthStart = balls[i].local + radiusVector;
+            Vector2f tmpLengthEnd = balls[j].local + radiusVector;
 
-            std::cout << tmpLengthEnd.x << std::endl;
+            //std::cout << tmpLengthEnd.x << std::endl;
         
             sf::Color tmpColor = sf::Color::White;
 
@@ -80,14 +82,6 @@ int main()
 
         for (int i = 0; i < NUMBALLS; i++)
         {
-            Sphere sphere;
-            sphere.drawSphere(balls[i], &window); 
-
-            //sphere.moveSphere(&balls[i], DT);    
-        }
-
-        for (int i = 0; i < NUMBALLS; i++)
-        {
             for (int j = i + 1; j < NUMBALLS; j ++)
             {
                 if (table[i][j] == 1)
@@ -100,28 +94,19 @@ int main()
 
         for (int i = 0; i < NUMBALLS; i++)
         {
+            Sphere sphere;
+            sphere.drawSphere(balls[i], &window); 
+
+            //sphere.moveSphere(&balls[i], DT);    
+        }
+
+        for (int i = 0; i < NUMBALLS; i++)
+        {
             Sphere sphere; 
             sphere.checkCollisionSphere(&balls[i], WINDOW_WIDTH, WINDOW_HEIGHT);
 
             sphere.moveSphere(&balls[i], DT);
         }
-;
-        /*for (int i = 0; i < NUMBALLS; i++)
-        {
-            for (int j = i + 1; j < NUMBALLS; j++)
-            {
-                if (table[i][j] == 1)
-                {
-                    springs[i].lengthStart = balls[i].local;
-                    springs[i].lengthEnd = balls[j].local;
-
-                    Spring spring; 
-
-                    //Vector2f detla = spring.changeLength(springs[i]);
-                }
-            }
-        }*/
-        
 
         for (int i = 0; i < NUMBALLS; i++)
         {
@@ -129,8 +114,8 @@ int main()
             {
                 if (table[i][j] == 1)
                 {
-                    springs[i].lengthStart = balls[j].local;
-                    springs[i].lengthEnd = balls[i].local;
+                    springs[i].lengthStart = balls[j].local + radiusVector;
+                    springs[i].lengthEnd = balls[i].local + radiusVector;
 
                     //std::cout << springs[i].lengthEnd.x << std::endl; 
                     
@@ -149,33 +134,6 @@ int main()
 
                     balls[i].acceleration = balls[i].acceleration + deltaStart  * 2 *springs[i].stiffness / balls[i].weight;
                     balls[j].acceleration = balls[j].acceleration + deltaEnd * 2 * springs[i].stiffness / balls[i].weight;
-
-                    //Vector2f vector;
-                    
-                    /*if (balls[i].velocity.x == 0)
-                    {
-                        balls[i].acceleration.x = balls[i].acceleration.x * (-1);
-                        std::cout << "ix" << std::endl;
-
-                    }
-
-                    if (balls[i].velocity.y == 0)
-                    {
-                        balls[i].acceleration.y = balls[i].acceleration.y * (-1);
-                        std::cout << "iy" << std::endl;
-                    }
-
-                    if (balls[j].velocity.x == 0)
-                    {
-                        balls[j].acceleration.x = balls[j].acceleration.x * (-1);
-                        std::cout << "jx" << std::endl;
-                    }
-
-                    if (balls[j].velocity.y == 0)
-                    {
-                        balls[j].acceleration.y = balls[j].acceleration.y * (-1);
-                        std::cout << "jy" << std::endl;
-                    }*/
                 }
             }
         }
