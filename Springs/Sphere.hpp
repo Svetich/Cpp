@@ -9,13 +9,13 @@ class Sphere
 
         sf::Color color;
 
-        int radius;
+        float radius;
 
         float weight; 
         
         void moveSphere(Sphere* sphere, const float DT)
-        {
-            sphere->local = sphere->local + sphere->velocity * DT + sphere->acceleration * pow(DT, 2) / 2;
+        {   
+            sphere->local = sphere->local + sphere->velocity * DT - sphere->acceleration * pow(DT, 2) / 2;
             sphere->velocity = sphere->velocity + sphere->acceleration * DT;
         }
         
@@ -35,6 +35,8 @@ class Sphere
         void drawSphere(Sphere sphere, sf::RenderWindow* window)
         {
             sf::CircleShape shape(sphere.radius, 10);
+
+            //shape.sf::Transformable::setOrigin (sphere.local.x, sphere.local.y);
 
             shape.setFillColor(sphere.color);
             shape.setPosition(sphere.local.x, sphere.local.y);
