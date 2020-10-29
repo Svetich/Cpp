@@ -28,7 +28,7 @@ int main()
     srand(time(NULL));
 
     const int WINDOW_WIDTH = 1280;
-    const int WINDOW_HEIGHT = 720;
+    const int WINDOW_HEIGHT = 700;
 
     const float DT = 0.01;
 
@@ -38,7 +38,7 @@ int main()
 
     for (int i = 0; i < NUMBER; i++)
     {
-        Vector2f tmpLocal = { 300 + 50 + (60 * i) % (60 * 10), 300 + 50 + (i / 10) * 40 };    
+        Vector2f tmpLocal = { 350 + (60 * i) % (60 * 10), 150 + (i / 10) * 40 };    
         Vector2f tmpVelocity = { normal() * 10.f, normal() * 10.f };
         
         sf::Color tmpColor = sf::Color::Blue;
@@ -88,7 +88,7 @@ int main()
                 Sphere sphere;
                 if (sphere.isCollidedTwoSphere(particles[i], particles[j]))
                 {
-                    sphere.resolveCollision(&particles[i], &particles[j]);
+                    sphere.resolveCollision(&particles[i], &particles[j], DT);
                 }
             }
         }
