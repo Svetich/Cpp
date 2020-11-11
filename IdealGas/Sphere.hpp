@@ -13,79 +13,78 @@ class Sphere
 
         float weight;
 
-    void drawSphere(sf::RenderWindow* window, Sphere sphere)
-    {
-        sf::CircleShape shape(sphere.radius, 10);
-
-        shape.setFillColor(sphere.color);
-        shape.setPosition(sphere.local.x, sphere.local.y);
-        window->draw(shape);
-    }
-
-    void moveSphere(Sphere* sphere, const float DT)
-    {
-        sphere->local = sphere->local + sphere->velocity * DT;       
-    }
-
-
-    void checkCollisionSphere(Sphere* sphere, int width, int height)
-    {
-        if (sphere->local.x + sphere->radius >= width - sphere->radius)
+        Sphere sphere(Vector2f local, Vector2f velocity, sf::Color color, int radius, float weight)
         {
-            sphere->velocity.x = -sphere->velocity.x;
-            sphere->local.x = width - 2 * sphere->radius;
-        }
-        
-        if (sphere->local.x + sphere->radius <= sphere->radius)
-        {
-            sphere->velocity.x = -sphere->velocity.x;
-            sphere->local.x = 2 * sphere->radius;
+            this->local = local;
+            this->velocity = velocity;
+            this->color = color;
+            this->radius = radius;
+            this->weight = weight;
         }
 
-        if (sphere->local.y + sphere->radius >= height - sphere->radius)
+        void drawSphere(sf::RenderWindow* window)
         {
-            sphere->velocity.y = -sphere->velocity.y;
-            sphere->local.y = height - 2 * sphere->radius;
+            sf::CircleShape shape(radius, 10);
+
+            shape.setFillColor(color);
+            shape.setPosition(local.x, local.y);
+            window->draw(shape);
         }
-        
-        if (sphere->local.y + sphere->radius <= sphere->radius)
+
+        void moveSphere(const float DT)
         {
-            sphere->velocity.y = -sphere->velocity.y;
-            sphere->local.y = 2 * sphere->radius;
+            local = local + velocity * DT;       
         }
-    }
 
 
-    bool isCollidedTwoSphere(Sphere sphere1, Sphere sphere2)
-    {   
-        Vector2f detlaX = sphere1.local - sphere2.local;
-        
-        Vector2f vector;
-        
-        if (vector.length(detlaX) <= 2 * sphere1.radius)
+        void checkCollisionSphere(int width, int height)
         {
-            return true;
+            if (local.x + radius >= width - radius)
+            {
+                velocity.x = -velocity.x;
+                local.x = width - 2 * radius;
+            }
+            
+            if (local.x + radius <= radius)
+            {
+                velocity.x = -velocity.x;
+                local.x = 2 * radius;
+            }
+
+            if (local.y + radius >= height - radius)
+            {
+                velocity.y = -velocity.y;
+                local.y = height - 2 * radius;
+            }
+            
+            if (local.y + radius <= radius)
+            {
+                velocity.y = -velocity.y;
+                local.y = 2 * radius;
+            }
         }
-        return false;
-    }
 
 
-    void resolveCollision(Sphere* sphere1, Sphere* sphere2, const float DT)
-    {
-        Vector2f Vc = (sphere1->velocity * sphere1->weight + sphere2->velocity * sphere2->weight) / (sphere1->weight + sphere2->weight);
-        
-        // в процессе разработки
+        /*bool isCollidedTwoSphere(Sphere sphere1, Sphere sphere2)
+        {   
+            Vector2f detlaX = sphere1.local - sphere2.local;
+            
+            Vector2f vector;
+            
+            if (vector.length(detlaX) <= 2 * sphere1.radius)
+            {
+                return true;
+            }
+            return false;
+        }*/
 
-        sphere1->velocity = sphere1->velocity * (-1);
-        sphere2->velocity = sphere2->velocity * (-1);
 
-        moveSphere(sphere1, DT);
-        moveSphere(sphere2, DT);
+        /*void resolveCollision(Sphere* sphere1, Sphere* sphere2, const float DT)
+        {
+            Vector2f Vc = (sphere1->velocity * sphere1->weight + sphere2->velocity * sphere2->weight) / (sphere1->weight + sphere2->weight);
+            
 
-        sphere1->velocity = sphere1->velocity * (-1);
-        sphere2->velocity = sphere2->velocity * (-1);
-
-        sphere1->velocity = Vc * 2- sphere1->velocity;
-        sphere2->velocity = Vc * 2- sphere2->velocity;
-    }
+            sphere1->velocity = Vc * 2- sphere1->velocity;
+            sphere2->velocity = Vc * 2- sphere2->velocity;
+        }*/
 };

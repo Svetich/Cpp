@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include <cstdlib>
+#include <iostream>
+#include <cstdio>
 #include <ctime>
 #include "Vector2f.hpp"
 #include "Sphere.hpp"
@@ -71,17 +72,15 @@ int main()
 
         for (int i = 0; i < NUMBER; i++)
         {
-            Sphere sphere;
-            sphere.drawSphere(&window, particles[i]);
+            particles[i].drawSphere(&window);
         }
 
         for (int i = 0; i < NUMBER; i++)
         {
-            Sphere sphere;
-            sphere.checkCollisionSphere(&particles[i], WINDOW_WIDTH, WINDOW_HEIGHT);
+            particles[i].checkCollisionSphere(WINDOW_WIDTH, WINDOW_HEIGHT);
         }
 
-        for (int i = 0; i < NUMBER; i++)
+        /*for (int i = 0; i < NUMBER; i++)
         {
             for (int j = i + 1; j < NUMBER; j++)
             {   
@@ -91,11 +90,13 @@ int main()
                     sphere.resolveCollision(&particles[i], &particles[j], DT);
                 }
             }
-        }
+        }*/
+
+
+
         for (int i = 0; i < NUMBER; i++)
         {
-            Sphere sphere;
-            sphere.moveSphere(&particles[i], DT);
+            particles[i].moveSphere(DT);
         }
 
         window.display();
