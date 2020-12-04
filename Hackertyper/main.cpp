@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <stdio.h>
 #include "String.hpp"
+#include "Text.hpp"
 
 
 int fileLen(FILE* file)
@@ -12,7 +13,6 @@ int fileLen(FILE* file)
     fseek(file, 0, SEEK_SET);
     return lenf;
 }
-
 
 
 int main()
@@ -26,17 +26,16 @@ int main()
     FILE * code = fopen("hackercode.py", "r");
     
     int len = fileLen(code);   
-    char* buffer = new char(len + 1);
+    char* buf = new char[len + 1];
 
-    fread(buffer, sizeof(char), len, code);
+    fread(buf, sizeof(char), len, code);
     fclose(code);
 
-    String visibleText = new char(len + 1);
-
-    String buf = buffer;    
+    String visibleText = new char[len + 1];   
+    String buffer = buf;
 
     sf::Font font;    
-    //font.loadFromFile("arial.ttf");
+    font.loadFromFile("arial.ttf");
 
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Hackertyper");
     
@@ -60,9 +59,9 @@ int main()
 
         if (evnt.type == sf::Event::KeyReleased)
         {   
-            char* newSymbol;
-            newSymbol[0] = buffer[count];
-            newSymbol[1] = buffer[count + 1];
+            visibleText = visibleText + String(buf[count]);
+            visibleText = visibleText + bu
+
 
             if (visibleText.countChar('\n'))
             {
@@ -70,7 +69,7 @@ int main()
             }
             count += 2;
 
-            String newText = newSymbol; 
+            String newText = buf[count] + buf[count + 1]; 
 
             visibleText = visibleText + newText;  
 
