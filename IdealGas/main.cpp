@@ -80,19 +80,17 @@ int main()
             particles[i].checkCollisionSphere(WINDOW_WIDTH, WINDOW_HEIGHT);
         }
 
-        /*for (int i = 0; i < NUMBER; i++)
+        for (int i = 0; i < NUMBER; i++)
         {
             for (int j = i + 1; j < NUMBER; j++)
             {   
                 Sphere sphere;
-                if (sphere.isCollidedTwoSphere(particles[i], particles[j]))
+                if (particles[i].isCollidedTwoSphere(particles[j]))
                 {
-                    sphere.resolveCollision(&particles[i], &particles[j], DT);
+                    particles[i].resolveCollision(&particles[j], DT);
                 }
             }
-        }*/
-
-
+        }
 
         for (int i = 0; i < NUMBER; i++)
         {

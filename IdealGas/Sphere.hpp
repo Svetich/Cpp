@@ -13,7 +13,12 @@ class Sphere
 
         float weight;
 
-        Sphere sphere(Vector2f local, Vector2f velocity, sf::Color color, int radius, float weight)
+    public:
+        Sphere()
+        {
+        }
+        
+        Sphere(Vector2f local, Vector2f velocity, sf::Color color, int radius, float weight)
         {
             this->local = local;
             this->velocity = velocity;
@@ -64,27 +69,28 @@ class Sphere
             }
         }
 
-
-        /*bool isCollidedTwoSphere(Sphere sphere1, Sphere sphere2)
+        bool isCollidedTwoSphere(Sphere sphere)
         {   
-            Vector2f detlaX = sphere1.local - sphere2.local;
-            
-            Vector2f vector;
-            
-            if (vector.length(detlaX) <= 2 * sphere1.radius)
+            Vector2f detlaX = local - sphere.local;
+                      
+            if (detlaX.length() <= 2 * radius)
             {
                 return true;
             }
             return false;
-        }*/
+        }
 
-
-        /*void resolveCollision(Sphere* sphere1, Sphere* sphere2, const float DT)
+        void resolveCollision(Sphere *sphere, const float DT)
         {
-            Vector2f Vc = (sphere1->velocity * sphere1->weight + sphere2->velocity * sphere2->weight) / (sphere1->weight + sphere2->weight);
+            Vector2f delta = {sphere->local.x - local.x, sphere->local.y - local.y};
+            float alpha = (sphere->local.x - local.x)/(sphere->local.y - local.y);
             
-
-            sphere1->velocity = Vc * 2- sphere1->velocity;
-            sphere2->velocity = Vc * 2- sphere2->velocity;
-        }*/
+            sphere->local.x = sphere->local.x + (2 * radius - delta.length()) * cos(atan(alpha));
+            sphere->local.y = sphere->local.y + (2 * radius - delta.length()) * sin(atan(alpha));
+           
+            Vector2f Vc = (velocity * weight + sphere->velocity * sphere->weight) / (weight + sphere->weight);
+            
+            velocity = Vc * 2 - velocity;
+            sphere->velocity = Vc * 2- sphere->velocity;
+        }
 };
