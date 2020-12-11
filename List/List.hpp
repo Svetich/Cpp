@@ -109,7 +109,7 @@ public:
         head = nullptr;
     }
 
-	List append(List<T> list)
+	List operator + (List<T> list)
 	{
 		List<T> newList;
 		Node<T>* pointer = head;
