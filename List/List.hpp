@@ -119,7 +119,7 @@ public:
 			pointer = pointer->next;
 		}
 		pointer = list.head;
-		while (pointer)
+		while(pointer)
 		{
 			newList.pushFront(pointer->value);
 			pointer = pointer->next;
@@ -130,12 +130,12 @@ public:
 	void operator += (List<T> list)
 	{
 		Node<T>* pointer = head;
-		while (pointer)
+		while(pointer)
 		{
 			pointer = pointer->next;
 		}
 		pointer = list.head;
-		while (pointer)
+		while(pointer)
 		{
 			this->pushFront(pointer->value);
 			pointer = pointer->next;
