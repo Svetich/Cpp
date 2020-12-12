@@ -3,7 +3,6 @@
 #include <cstdio>
 #include <stdio.h>
 #include "String.hpp"
-#include "Text.hpp"
 
 
 int fileLen(FILE* file)
@@ -15,53 +14,54 @@ int fileLen(FILE* file)
 }
 
 
+
 int main()
 {          
     const int WINDOW_WIDTH = 1000;
     const int WINDOW_HEIGHT = 500;
-    
+
     int count = 0;
     int quantityN = 0;
-    
-    FILE * code = fopen("hackercode.py", "r");
-    
-    int len = fileLen(code);   
-    char* buf = new char[len + 1];
 
-    fread(buf, sizeof(char), len, code);
+    FILE * code = fopen("hackercode.py", "r");
+
+    int len = fileLen(code);   
+    char* buffer = new char[len + 1];
+
+    fread(buffer, sizeof(char), len, code);
     fclose(code);
 
-    String visibleText = new char[len + 1];   
-    String buffer = buf;
+    String visibleText = new char[len + 1];
+
+    String buf = buffer;    
 
     sf::Font font;    
     font.loadFromFile("arial.ttf");
 
+    sf::Text visText;
+    visText.setFont(font);
+    visText.setCharacterSize(15); 
+    visText.setFillColor(sf::Color::Green);
+
+
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Hackertyper");
-    
+
     while (window.isOpen())
     {
         sf::Event evnt;
         while (window.pollEvent(evnt))
         {
-            switch (evnt.type)
-            {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::KeyPressed:
-                if (evnt.key.code == sf::Keyboard::Space)
-                    window.close();
-                break;
-            }
-        }
-        window.clear();
+            if (evnt.type == sf::Event::Closed)
+			{
+				window.close();
+			}
+			if (evnt.type == sf::Event::KeyReleased)
+			{  
+            char* newSymbol;
+            newSymbol[0] = buffer[count];
+            newSymbol[1] = buffer[count + 1];
 
-        if (evnt.type == sf::Event::KeyReleased)
-        {   
-            visibleText = visibleText + String(buf[count]);
-            visibleText = visibleText + bu
-
+            std::cout<<newSymbol<<std::endl;
 
             if (visibleText.countChar('\n'))
             {
@@ -69,44 +69,19 @@ int main()
             }
             count += 2;
 
-            String newText = buf[count] + buf[count + 1]; 
+            String newText = newSymbol; 
 
-            visibleText = visibleText + newText;  
-
-            
-
-            sf::Text text;
-
-            text.setFont(font);
-            text.setString(visibleText.str);
-            text.setCharacterSize(15); 
-            text.setFillColor(sf::Color::Green);
-
-            window.draw(text);
-            
-            window.display();    
+            visibleText = visibleText + newText;
+            }  
         }
+            visText.setString(visibleText.str);
+            
+            window.clear();
+            window.draw(visText);
+            window.display();    
         
-        
+
+
     }
     return 0;
-
-
-
-   
-
-
-   //len = FileLen("hackercode.py")
-   
-    //char str1[] = "dsfsfs";
-    // char str2[] = "ferffg";
-    
-    // String string1 = {str1};
-    
-    // String string2 = {str2};
-    // String new_str = string1 + string2;
-    // std::cout << new_str.str << std::endl;
-
-    // return 0;
-
 }

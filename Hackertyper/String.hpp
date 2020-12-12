@@ -7,6 +7,11 @@ class String
 
         char* str;
 
+        String ()
+        {
+
+        }
+
         String(char* str)
         {
             this->str = str;
@@ -89,21 +94,6 @@ class String
             {
 
             }
-        }
-
-    private:
-        
-        int length(char* str)
-        {
-            String string = {str};
-            // int len = 0;
-
-            // while ([len] != '\0') 
-            // {
-            //     len += 1;
-            // }
-
-            return string.length();
         }
         
 };
