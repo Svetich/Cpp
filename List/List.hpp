@@ -113,7 +113,7 @@ public:
 		}			
 	}
 
-	T insert(int index)
+	T getValue(int index)
 	{
 		Node<T>* pointer = head;
 		for (int i = 0; i < index; ++i)
