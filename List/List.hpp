@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 
 template <typename T>
 
@@ -26,6 +27,28 @@ public:
         head(nullptr),
         currentIndex(nullptr)
     {}
+
+	List(const List<T>& list)
+	{
+		head = NULL;
+		Node<T>* pointer = list.head;
+		while (pointer)
+		{
+			this->pushFront(pointer->value);
+			pointer = pointer->next;
+		}
+	}
+
+	~List()
+	{
+		Node<T>* pointer = head;
+		while (pointer)
+		{
+			Node<T>* newPointer = pointer->next;
+			delete pointer;
+			pointer = newPointer;
+		}
+	}
 
     void pushFront(T pValue)
     {
@@ -58,27 +81,37 @@ public:
 
             pCurrentNode = pCurrentNode->next;
             if (!pCurrentNode)
-                break;
+				break;
         }
-
         return res;
     }
 
 	T removeByIndex(const int index)
 	{
 		Node<T>* pointer = head;
+
 		for (int i = 0; i < index - 1; ++i)
 		{
 			assert(pointer);
 			pointer = pointer->next;
 		}
-		Node<T>* newHead = pointer->next->next;
-		T newList = pointer->next->value;
-		delete pointer->next;
-		pointer->next = newHead;
-		return newList;
+		if (pointer->next != nullptr)
+		{
+			Node<T>* newHead = pointer->next->next; 
+			T newList = pointer->next->value; 
+			delete pointer->next;
+			pointer->next = newHead;
+			return newList;		
+		}
+		else
+		{
+			Node<T>* newHead = NULL;
+			T newList = NULL; 
+			delete pointer->next;
+			pointer->next = newHead;
+			return newList;
+		}			
 	}
-
 
 	T insert(int index)
 	{
@@ -86,7 +119,7 @@ public:
 		for (int i = 0; i < index; ++i)
 		{
 			assert(head);
-			pointer = head->next;
+			pointer = pointer->next;
 		}
 		T newList = pointer->value;
 		return newList;
@@ -94,19 +127,10 @@ public:
 
 	void erase()
     {
-        for (int i = this->len(); i > 0; i--)
-        {
-            Node<T>* pointer = head;
-
-        	for (int j = 1; j < i; j++)
-        	{
-            	p_res = p_res->next;
-			}			
-			
-			delete this->p_res;
-        }
-        
-        head = nullptr;
+        while(true)
+		{
+			popFront();
+		}
     }
 
 	List operator + (List<T> list)
