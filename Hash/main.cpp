@@ -57,10 +57,13 @@ int main()
 
     for (int i = 0; i <= buffer.size(); i++)
     {
-        hashFunctions key = {buffer[i]};
-        int hash = key.hashFunction2();
+        if (buffer[i] != std::string())
+        {
+            hashFunctions key = {buffer[i]};
+            int hash = key.hashFunction5();
 
-        hash_table[hash % 1000].push_back(buffer[i]);
+            hash_table[hash % 1000].push_back(buffer[i]);
+        }
     }
     
     createCollisionFile(hash_table);
