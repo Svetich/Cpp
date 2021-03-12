@@ -55,16 +55,13 @@ public:
         head = new Node<T>(pValue, head);
     }
 
-    T popFront()
+    void popFront()
     {
         assert(head);
 
         Node<T>* newHead = head->next;
-        T value = head->value;
         delete head;
         head = newHead;
-
-        return value;
     }
 
     int len()
@@ -95,12 +92,14 @@ public:
 			assert(pointer);
 			pointer = pointer->next;
 		}
-		if (pointer->next != nullptr)
+		if (pointer->next != NULL)
 		{
 			Node<T>* newHead = pointer->next->next; 
 			T newList = pointer->next->value; 
+			std::cout<<newList<<std::endl;
 			delete pointer->next;
 			pointer->next = newHead;
+			std::cout<<newList<<std::endl;
 			return newList;		
 		}
 		else
@@ -164,5 +163,27 @@ public:
 			this->pushFront(pointer->value);
 			pointer = pointer->next;
 		}
+	}
+
+	bool hasCycle()
+	{
+		Node<T>* pointer1 = head;
+		Node<T>* pointer2 = head;
+		
+		while(pointer1)
+		{
+		if (pointer2->next->next == NULL) 
+		{
+			return 0;
+		}
+		pointer1 = pointer1->next;
+		pointer2 = pointer2->next->next;
+			
+		if (pointer1 == pointer2)
+		{
+			return 1;
+		}  
+		}
+		return 0;
 	}
 };

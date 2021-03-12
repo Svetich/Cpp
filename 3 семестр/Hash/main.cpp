@@ -41,7 +41,7 @@ void createCollisionFile(std::vector < std::list <std::string> > hash_table)
     collision.open("collision.txt"); 
     if (collision.is_open())
     {
-        for (int i = 0; i <= hash_table.size(); i++)
+        for (int i = 0; i < hash_table.size(); i++)
         {
             collision << hash_table[i].size() << std::endl;
         }        

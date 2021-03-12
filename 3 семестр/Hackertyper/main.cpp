@@ -21,7 +21,7 @@ int main()
     const int WINDOW_HEIGHT = 500;
 
     int count = 0;
-    int quantityN = 0;
+    int numberStr = 0;
 
     FILE * code = fopen("hackercode.py", "r");
 
@@ -43,7 +43,6 @@ int main()
     visText.setCharacterSize(15); 
     visText.setFillColor(sf::Color::Green);
 
-
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Hackertyper");
 
     while (window.isOpen())
@@ -61,13 +60,21 @@ int main()
             newSymbol[0] = buffer[count];
             newSymbol[1] = buffer[count + 1];
 
+            count += 2;
+
             std::cout<<newSymbol<<std::endl;
 
-            if (visibleText.countChar('\n'))
+            if (newSymbol[0] == '\n')
             {
-
+                numberStr += 1;
             }
-            count += 2;
+
+            if (newSymbol[1] == '\n')
+            {
+                numberStr += 1;
+            }
+
+            
 
             String newText = newSymbol; 
 
@@ -79,9 +86,6 @@ int main()
             window.clear();
             window.draw(visText);
             window.display();    
-        
-
-
     }
     return 0;
 }
