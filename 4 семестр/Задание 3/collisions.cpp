@@ -123,8 +123,7 @@ int main()
         number = distNum(gen);
         fname = random_string(lengthFname);
         lname = random_string(lengthLname);
-
-        
+      
         unordered_set <int> cont;
     
         Customer customer(fname, lname, number); 
