@@ -1,34 +1,22 @@
-/*Напишите программу, которая определяет содержимое заданной пользователем
-существующей на компьютере директории,
-это можно сделать в цикле
-for (auto const & entry : std::filesystem::recursive_directory_iterator(path))
-Для файлов и папок в директории выведите название, тип (директория
-std::filesystem::is_directory(path) или обычный файл std::filesystem::is_regular_file(path)) и
-время последнего изменения std::filesystem::last_write_time(path).*/
-
-#include <filesystem>
-#include <experimental/filesystem>
-#include <fstream>
-#include <iomanip>
 #include <iostream>
+#include <fstream>
+#include <filesystem>
+#include <iomanip>
+#include <chrono>
 
 using namespace std;
 
 int main()
 {
-    string strPath;
-    cin >> strPath;
-    
-    system("dir");
+	filesystem::current_path(filesystem::temp_directory_path());
 
-    auto path = experimental::filesystem::current_path() / "/two.cpp";
-    
+    for(auto& p: filesystem::recursive_directory_iterator("path"))
+    cout << p.path() << filesystem::is_directory;
 
-    for (auto const & entry : experimental2003
-    ::filesystem::recursive_directory_iterator(path))
-    {
-        cout << entry <<endl;
-    }
+    if(filesystem::is_regular_file("path")) cout << "обычный файл" << endl;
+    if (filesystem::is_directory("path")) cout << "директория" << endl;
+
+    cout << " Время последнего изменения: " << filesystem::last_write_time("path") << endl;
 
     return 0;
 }
